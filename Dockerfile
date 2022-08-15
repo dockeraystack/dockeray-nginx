@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM nginx:1.21.6
+FROM nginx:1.23.1
 
 ENV DOCKERIZE_VERSION v0.6.1
 
