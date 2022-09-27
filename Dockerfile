@@ -16,15 +16,14 @@
 
 FROM nginx:1.23.1
 
-ENV DOCKERIZE_VERSION v0.6.1
+ARG TARGETARCH
 
 ADD nginx.conf /etc/nginx/nginx.conf
 
-RUN apt-get update \
-    && apt-get install -y wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+COPY dockerize-linux-$TARGETARCH-v0.6.1.tar.gz /tmp/dockerize.tar.gz
+
+RUN tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
+    && rm /tmp/dockerize.tar.gz \
+    && rm -rf /tmp/* /var/cache/apk/* 
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
