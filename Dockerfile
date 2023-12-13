@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM nginx:1.23.1
+FROM nginx:1.25.3
 
 ARG TARGETARCH
 
